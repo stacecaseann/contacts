@@ -1,0 +1,15 @@
+//LOCALHOST
+###Get all contacts
+GET http://localhost:3000/users
+
+###Get a contact by ID
+GET http://localhost:3000/users/68bcf238b316e287f942938c
+
+
+//PRODUCTION
+###Get all contacts
+GET https://contacts-29om.onrender.com/users
+
+###Get a contact by ID
+GET https://contacts-29om.onrender.com/users/68bcf238b316e287f942938c
+
