@@ -1,0 +1,63 @@
+//LOCALHOST
+###Get all contacts
+GET http://localhost:3000/users
+
+###Get a contact by ID
+GET http://localhost:3000/users/68bcf238b316e287f942938c
+
+###Create a contact
+POST http://localhost:3000/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "janedoeuser",
+    "email": "jane@gmail.com",
+    "name": "Jane",
+    "ipaddress": "151.12.1641.1"
+}
+
+###Udpate a contact by ID
+PUT http://localhost:3000/users/68c5fae5c8b2bfb0c655959b HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "johndoeuser",
+    "email": "john@gmail.com",
+    "name": "John",
+    "ipaddress": "151.12.1641.1"
+}
+
+###Delete a contact by ID
+DELETE http://localhost:3000/users/68c5fae5c8b2bfb0c655959b HTTP/1.1
+
+//PRODUCTION
+###Get all contacts
+GET https://contacts-29om.onrender.com/users
+
+###Get a contact by ID
+GET https://contacts-29om.onrender.com/users/68c5f59631039be473514b47
+
+###Create a contact
+POST https://contacts-29om.onrender.com/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "janedoeuser",
+    "email": "jane@gmail.com",
+    "name": "Jane",
+    "ipaddress": "151.12.1641.1"
+}
+
+###Udpate a contact by ID
+PUT https://contacts-29om.onrender.com/users/68c5f59631039be473514b47 HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "johndoeuser",
+    "email": "john@gmail.com",
+    "name": "John",
+    "ipaddress": "151.12.1641.1"
+}
+
+###Delete a contact by ID
+DELETE https://contacts-29om.onrender.com/users/68c5f59631039be473514b47 HTTP/1.1

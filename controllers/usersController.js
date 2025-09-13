@@ -1,14 +1,9 @@
-const mongodb = require('../database/connect');
-const { ObjectId } = require('mongodb');
+const usersModel = require('../database/usersModel');
 
 const getAllUsers = async (req, res) => {
   //#swagger.tags = ['Users']
   //#swagger.summary = 'Gets all users.'
-  const result = await mongodb
-    .getDb()
-    .db('project1')
-    .collection('users')
-    .find();
+  const result = await usersModel.getAllUsersFromDb();
   return result
     .toArray()
     .then((lists) => {
@@ -24,12 +19,8 @@ const getUserById = async (req, res) => {
   //#swagger.tags = ['Users']
   //#swagger.summary = 'Gets a user by id.'
   //#swagger.parameters['id'] = { description: 'User ID.' }
-  const userId = ObjectId.createFromHexString(req.params.id); // preferred way
-  const result = await mongodb
-    .getDb()
-    .db('project1')
-    .collection('users')
-    .find({ _id: userId });
+  const id = req.params.id;
+  const result = await usersModel.getUserByIdFromDb(id);
   return result
     .toArray()
     .then((lists) => {
@@ -51,11 +42,7 @@ const createUser = async (req, res) => {
     name: req.body.name,
     ipaddress: req.body.ipaddress,
   };
-  const response = await mongodb
-    .getDb()
-    .db('project1')
-    .collection('users')
-    .insertOne(user);
+  const response = await usersModel.createUserInDb(user);
   if (response.acknowledged) {
     res.status(204).send();
   } else {
@@ -70,7 +57,7 @@ const updateUser = async (req, res) => {
   //#swagger.summary = 'Updates a user by ID.'
   //#swagger.description = 'Updates a user by ID with the provided information.'
   //#swagger.parameters['id'] = { description: 'User ID.' }
-  const userId = ObjectId.createFromHexString(req.params.id); // preferred way
+  const userId = req.params.id;
   const user = {
     username: req.body.username,
     email: req.body.email,
@@ -78,11 +65,7 @@ const updateUser = async (req, res) => {
     ipaddress: req.body.ipaddress,
   };
 
-  const response = await mongodb
-    .getDb()
-    .db('project1')
-    .collection('users')
-    .replaceOne({ _id: userId }, user);
+  const response = await usersModel.updateUserInDb(userId, user);
   if (response.modifiedCount > 0) {
     res.status(204).send();
   } else {
@@ -97,13 +80,9 @@ const deleteUser = async (req, res) => {
   //#swagger.summary = 'Deletes a user by ID.'
   //#swagger.description = 'Creates a user by ID.'
   //#swagger.parameters['id'] = { description: 'User ID.' }
-  const userId = ObjectId.createFromHexString(req.params.id); // preferred way
+  const userId = req.params.id;
 
-  const response = await mongodb
-    .getDb()
-    .db('project1')
-    .collection('users')
-    .deleteOne({ _id: userId });
+  const response = await usersModel.deleteUserFromDb(userId);
   if (response.deletedCount > 0) {
     res.status(204).send();
   } else {
