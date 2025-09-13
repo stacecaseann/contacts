@@ -1,0 +1,17 @@
+{
+  // Format on save
+  "editor.formatOnSave": true,
+
+  // Always run ESLint fixes when saving
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+
+  // File types ESLint should validate
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ]
+}

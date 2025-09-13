@@ -3,16 +3,31 @@ const app = express();
 const mongodb = require('./database/connect');
 const port = process.env.PORT || 3000;
 
+app.use(express.json());
+
+//add code for routes to work across sites
+//to pass headers back and forth
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization',
+  );
+  res.setHeader(
+    'Access-Control-Allow-Methods',
+    'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+  );
+  next();
+});
+
 app.use('/', require('./routes'));
 
 mongodb.initDb((err) => {
   if (err) {
     console.log(err);
-    } else {
-    app.listen(port, () => (console.log(`Database is listening on port: ${port}`)));
-    }
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
+  } else {
+    app.listen(port, () =>
+      console.log(`Database is listening on port: ${port}`),
+    );
+  }
 });
